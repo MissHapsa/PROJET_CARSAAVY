@@ -18,12 +18,17 @@ public class JwtUtils {
     public String generateToken(UserDetails userDetails) {
 
         SimpleGrantedAuthority role = (SimpleGrantedAuthority)userDetails.getAuthorities().toArray()[0];
+        AppUserDetails appUserDetails = (AppUserDetails) userDetails;
 
         return Jwts.builder()
                 .signWith(SignatureAlgorithm.HS256, secretJwt)
                 .setSubject(userDetails.getUsername())
                 .addClaims(Map.of("admin", role.getAuthority().equals("ROLE_ADMIN") ? 1 : 0))
+                .addClaims(Map.of("nom", appUserDetails.utilisateur.getNom()))
+                .addClaims(Map.of("prenom", appUserDetails.utilisateur.getPrenom()))
+
                 .compact();
+
     }
 
     public String getSubjectFromJwt(String jwt) {
