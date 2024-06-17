@@ -32,7 +32,6 @@ public class UtilisateurController {
 
     @GetMapping("/utilisateur/{id}")
     @JsonView(UtilisateurAvecCommandeView.class)
-    @IsAdmin
     public ResponseEntity<Utilisateur> get(@PathVariable int id) {
 
         Optional<Utilisateur> utilisateurOptional = utilisateurRepository.findById(id);

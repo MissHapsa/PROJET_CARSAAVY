@@ -135,6 +135,58 @@
             </llm>
           </llm>
         </chat>
+        <chat>
+          <accountId value="VXNlcjoyNDI3ODI=" />
+          <internalId value="a353ac08-67c9-493c-a258-5da80f069494" />
+        </chat>
+        <chat>
+          <accountId value="VXNlcjoyNDI3ODI=" />
+          <internalId value="80bc4c9a-c9c3-4fe9-9571-b0e04760aa24" />
+          <llm>
+            <llm>
+              <model value="anthropic/claude-3-sonnet-20240229" />
+              <provider value="Anthropic" />
+              <title value="Claude 3 Sonnet" />
+            </llm>
+          </llm>
+        </chat>
+        <chat>
+          <accountId value="VXNlcjoyNDI3ODI=" />
+          <internalId value="d3227b9c-ca72-4f5c-998f-ca45042158ac" />
+        </chat>
+        <chat>
+          <accountId value="VXNlcjoyNDI3ODI=" />
+          <internalId value="c46d2b95-9c76-47d5-9732-268ceeea6e19" />
+          <messages>
+            <list>
+              <message>
+                <speaker value="HUMAN" />
+                <text value="Review the shared code context and configurations to identify the test framework and libraries in use. Then, generate a suite of multiple unit tests for the functions in &lt;selected&gt; using the detected test framework and libraries. Be sure to import the function being tested. Follow the same patterns as any shared context. Only add packages, imports, dependencies, and assertions if they are used in the shared code. Pay attention to the file path of each shared context to see if test for &lt;selected&gt; already exists. If one exists, focus on generating new unit tests for uncovered cases. If none are detected, import common unit test libraries for {languageName}. Focus on validating key functionality with simple and complete assertions. Only include mocks if one is detected in the shared code. Before writing the tests, identify which test libraries and frameworks to import, e.g. 'No new imports needed - using existing libs' or 'Importing test framework that matches shared context usage' or 'Importing the defined framework', etc. Then briefly summarize test coverage and any limitations. At the end, enclose the full completed code for the new unit tests, including all necessary imports, in a single markdown codeblock. No fragments or TODO. The new tests should validate expected functionality and cover edge cases for &lt;selected&gt; with all required imports, including importing the function being tested. Do not repeat existing tests." />
+              </message>
+              <message>
+                <speaker value="ASSISTANT" />
+                <text value="&lt;html&gt;&lt;b&gt; Cody encountered an error when processing your message:&lt;/b&gt;&lt;br&gt;&lt;div marginwidth=10&quot; marginheight=&quot;10&quot;&gt;&amp;#9888;  Invalid access token.&#10;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;/html&gt;" />
+              </message>
+            </list>
+          </messages>
+          <updatedAt value="2024-06-05T11:47:31.2370023" />
+        </chat>
+        <chat>
+          <accountId value="VXNlcjoyNDI3ODI=" />
+          <internalId value="2d69d2fa-f0a2-4f93-80ee-356e8adbcd88" />
+        </chat>
+        <chat>
+          <accountId value="VXNlcjoyNDI3ODI=" />
+          <internalId value="e50d1b8c-e6dd-48f2-919d-cf3874f1aa61" />
+        </chat>
+        <chat>
+          <accountId value="VXNlcjoyNDI3ODI=" />
+          <internalId value="ed164c2d-e86a-4a73-80ff-4f0d87feb107" />
+        </chat>
+        <chat>
+          <accountId value="VXNlcjoyNDI3ODI=" />
+          <internalId value="80550962-e86f-4eda-883b-cf6e3a06a911" />
+        </chat>
       </list>
     </chats>
     <defaultLlm>

@@ -25,5 +25,4 @@ public class PrestationController {
         return prestationRepository.findAll();
 
     }
-
 }

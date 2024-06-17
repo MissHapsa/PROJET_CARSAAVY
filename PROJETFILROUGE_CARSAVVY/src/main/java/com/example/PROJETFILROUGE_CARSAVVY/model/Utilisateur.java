@@ -1,13 +1,16 @@
 package com.example.PROJETFILROUGE_CARSAVVY.model;
 
 
+import com.example.PROJETFILROUGE_CARSAVVY.view.UtilisateurAvecCommandeView;
 import com.example.PROJETFILROUGE_CARSAVVY.view.UtilisateurView;
+import com.example.PROJETFILROUGE_CARSAVVY.model.Vehicule;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,28 +22,28 @@ public class Utilisateur {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
 
-    @JsonView({UtilisateurView.class})
+    @JsonView({UtilisateurView.class, UtilisateurAvecCommandeView.class})
      protected String nom;
 
-    @JsonView({UtilisateurView.class})
+    @JsonView({UtilisateurView.class, UtilisateurAvecCommandeView.class})
     protected String prenom;
 
-    @JsonView({UtilisateurView.class})
+    @JsonView({UtilisateurView.class, UtilisateurAvecCommandeView.class})
     protected String rue;
 
-    @JsonView({UtilisateurView.class})
+    @JsonView({UtilisateurView.class, UtilisateurAvecCommandeView.class})
     protected Long cp;
 
-    @JsonView({UtilisateurView.class})
+    @JsonView({UtilisateurView.class, UtilisateurAvecCommandeView.class})
     protected String tel;
 
-    @JsonView({UtilisateurView.class})
+    @JsonView({UtilisateurView.class, UtilisateurAvecCommandeView.class})
     protected String ville;
 
-    @JsonView({UtilisateurView.class})
+    @JsonView({UtilisateurView.class, UtilisateurAvecCommandeView.class})
     protected Date date_creation;
 
-    @JsonView({UtilisateurView.class})
+    @JsonView({UtilisateurView.class, UtilisateurAvecCommandeView.class})
     @Column( unique = true)
     protected String email;
 
@@ -52,6 +55,10 @@ public class Utilisateur {
 
     @ManyToOne
     protected Role role;
+
+    @JsonView({UtilisateurView.class, UtilisateurAvecCommandeView.class})
+    @OneToMany(mappedBy = "utilisateur")
+    private List<Vehicule> vehicules;
 
 
 
