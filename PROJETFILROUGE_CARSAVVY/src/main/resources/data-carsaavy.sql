@@ -22,16 +22,11 @@ INSERT INTO `marque` (`id`, `nom`) VALUES
 --
 
 INSERT INTO `materiel` (`id`, `nom`) VALUES
-                                         (1, 'Pont Élévateur 1'),
-                                         (2, 'Pont Élévateur 2'),
-                                         (3, 'Boite à outil complète 1'),
-                                         (4, 'Boite à outil complète 2'),
-                                         (5, 'Compresseur d\'air 1'),
-                                         (6, 'Compresseur d\'air 2'),
-                                         (7, 'Diagnostiquer OBD-II 1'),
-                                         (8, 'Diagnostiquer OBD-II 2'),
-                                         (9, 'Chariot de Vidange d\'Huile 1'),
-                                         (10, 'Chariot de Vidange d\'Huile 2');
+                                         (1, 'Pont Élévateur'),
+                                         (2, 'Boite à outil complète'),
+                                         (3, 'Compresseur d\'air'),
+                                         (4, 'Diagnostiquer OBD-II'),
+                                         (5, 'Chariot de Vidange d\'Huile');
 --
 -- Déchargement des données de la table `modele`
 --
@@ -142,16 +137,15 @@ INSERT INTO `modele` (`id`, `nom`, `annee`, `id_Marque`) VALUES
 -- Déchargement des données de la table `prestation`
 --
 
-INSERT INTO `prestation` (`id`, `libelle`, `description`,image_url, `id_garage`) VALUES
-                                                                           (1, 'Pneus', 'Changement de pneus et équilibrage des roues.','src/main/resources/static/images/pneus.png', 1),
-                                                                           (2, 'Révision', 'Révision générale du véhicule avec vidange des fluides.','src/main/resources/static/images/carsavvy presations.jpg', 1),
-                                                                           (3, 'Vidange', 'Remplacement de lhuile moteur et du filtre à huile','src/main/resources/static/images/vidange.png', 1),
-                                                                           (4, 'Reparation de la carrosserie', 'Reparation des dommages extérieurs au véhicule','src/main/resources/static/images/carosserie.png', 1),
-                                                                           (5, 'Diagnostic electronique', 'Analyse des systemes electroniques du véhicule','src/main/resources/static/images/diagnostic.png', 1),
-                                                                           (6, 'Amortisseurs', 'Remplacement et vérification des amortisseurs','src/main/resources/static/images/amortisseurs.png', 1),
-                                                                           (7, 'Contrôle technique', 'Vérification complète du véhicule pour le contrôle technique obligatoire','src/main/resources/static/images/controle.png', 1);
-
-
+INSERT INTO prestation (id, libelle, description, image_url, id_garage, duree)
+VALUES
+    (1, 'Pneus', 'Changement de pneus et équilibrage des roues.', 'src/main/resources/static/images/pneus.png', 1, 60),
+    (2, 'Révision', 'Révision générale du véhicule avec vidange des fluides.', 'src/main/resources/static/images/carsavvy presations.jpg', 1, 120),
+    (3, 'Vidange', 'Remplacement de lhuile moteur et du filtre à huile', 'src/main/resources/static/images/vidange.png', 1, 30),
+    (4, 'Reparation de la carrosserie', 'Reparation des dommages extérieurs au véhicule', 'src/main/resources/static/images/carosserie.png', 1, 120),
+    (5, 'Diagnostic electronique', 'Analyse des systemes electroniques du véhicule', 'src/main/resources/static/images/diagnostic.png', 1, 30),
+    (6, 'Amortisseurs', 'Remplacement et vérification des amortisseurs', 'src/main/resources/static/images/amortisseurs.png', 1, 90),
+    (7, 'Contrôle technique', 'Vérification complète du véhicule pour le contrôle technique obligatoire', 'src/main/resources/static/images/controle.png', 1, 60);
 
 
 --
@@ -161,8 +155,7 @@ INSERT INTO `prestation` (`id`, `libelle`, `description`,image_url, `id_garage`)
 INSERT INTO `role` (`id`, `nom`) VALUES
                                      (1, 'admin'),
                                      (2, 'technicien'),
-                                     (3, 'utilisateur'),
-                                     (4, 'adherent');
+                                     (3, 'utilisateur');
 
 --
 -- Déchargement des données de la table `salaries`
@@ -172,29 +165,8 @@ INSERT INTO `salaries` (`Id`, `nom`, `prenom`, `passeword`, `email`, `poste`, `i
                                                                                                (1, 'Dubois', 'Mathieu', 'toto1', 'bmathieu@gmail.com', 'Mécanicien automobile', 1),
                                                                                                (2, 'Petit', 'Jeremy', 'toto2', 'petit@gmail.com', 'Chef atelier automobile', 1),
                                                                                                (3, 'Doe', 'Jhon', 'toto3', 'doe@gmail.com', 'Monteur pneumatique', 1),
-                                                                                               (4, 'Doe', 'Jane', 'toto4', 'janedoe@gmail.com', 'Réceptionniste atelier automobile', 1),
-                                                                                               (5, 'Smith', 'Alexandre', 'toto5', 'smith@gmail.com', 'Mécanicien automobile', 1),
                                                                                                (6, 'Soulas', 'Ethan', 'toto6', 'soulas@gmail.com', 'Mécanicien automobile', 1);
 
---
--- Déchargement des données de la table `sousprestation`
---
-
-INSERT INTO `sousprestation` (`id`, `libelle`, `prix`, `duree`, `id_prestation`) VALUES
-                                                                                     (1, 'Changement de pneus', '100.00', '01:30:00', 1),
-                                                                                     (2, 'Équilibrage des roues', '50.00', '00:30:00', 1),
-                                                                                     (3, 'Vidange dhuile moteur', '80.00', '00:45:00', 2),
-                                                                                     (4, 'Inspection des freins', '60.00', '00:30:00', 2),
-                                                                                     (5, 'Changement de filtre à air', '40.00', '00:15:00', 2),
-                                                                                     (6, 'Remplacement de lhuile moteur', '80.00', '00:30:00', 3),
-                                                                                     (7, 'Remplacement du filtre à huile', '30.00', '00:15:00', 3),
-                                                                                     (8, 'Vérification du niveau dhuile', '20.00', '00:15:00', 3),
-                                                                                     (9, 'Redressage des bosses', '150.00', '02:00:00', 4),
-                                                                                     (10, 'Réparation des rayures', '100.00', '01:00:00', 4),
-                                                                                     (11, 'Remplacement du pare-chocs', '200.00', '03:00:00', 4),
-                                                                                     (12, 'Lecture des codes derreur', '50.00', '00:30:00', 5),
-                                                                                     (13, 'Analyse des capteurs', '100.00', '00:15:00', 5),
-                                                                                     (14, 'Réparation du système électrique', '150.00', '02:00:00', 5);
 
 --
 -- Déchargement des données de la table `utilisateur`
@@ -225,7 +197,11 @@ INSERT INTO `vehicule` (`id`, `annee`, `immat`, `id_utilisateur`, `id_modele`) V
 --
 
 INSERT INTO `vente` (`id`, `prix`, `date_rentre`, `date_vente`, `annee`, `immat`, `id_vehicule`) VALUES
-                                                                                                     (1, '15000.000', '2024-04-06', NULL, 2019, 'TOY-COR-2024', 1),
-                                                                                                     (2, '22000.000', '2024-04-18', NULL, 2020, 'HON-CIV-2024', 6),
-                                                                                                     (3, '18000.000', '2024-01-06', NULL, 2018, 'FOR-F15-2024', 8);
+                                                                                                     (1, '15000.000', '2024-04-06', NULL, 2019, 'BM-224-AI', 1),
+                                                                                                     (2, '22000.000', '2024-04-18', NULL, 2020, 'HO-567-LK', 6),
+                                                                                                     (3, '18000.000', '2024-01-06', NULL, 2018, 'KH-207-VB', 8),
+                                                                                                     (4, '17000.000', '2024-05-10', NULL, 2021, 'LM-345-XC', 3),
+                                                                                                     (5, '23000.000', '2024-06-15', NULL, 2022, 'TR-678-PO', 4),
+                                                                                                     (6, '16000.000', '2024-03-20', NULL, 2017, 'GF-901-ZY', 2);
+
 

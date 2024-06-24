@@ -23,34 +23,32 @@ public class JwtFilter extends OncePerRequestFilter {
     @Autowired
     AppUserDetailsService appUserDetailsService;
 
-    /**
-     * Methose executée à chaque requete afin d'extraire le JWT de l'entête authorization et identifier l'utilisateur
-     *
-     * @param request
-     * @param response
-     * @param filterChain
-     * @throws ServletException
-     * @throws IOException
-     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         String authorization = request.getHeader("Authorization");
 
-        if(authorization != null) {
-
+        if (authorization != null && authorization.startsWith("Bearer ")) {
             String jwt = authorization.substring(7);
 
-            String subject = jwtUtils.getSubjectFromJwt(jwt);
+            try {
+                String subject = jwtUtils.getSubjectFromJwt(jwt);
 
-            UserDetails userDetails = appUserDetailsService.loadUserByUsername(subject);
+                if (subject != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                    UserDetails userDetails = appUserDetailsService.loadUserByUsername(subject);
 
-            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                    new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-            usernamePasswordAuthenticationToken
-                    .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-
+                    if (jwtUtils.validateJwt(jwt, userDetails)) {
+                        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+                                new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                        usernamePasswordAuthenticationToken
+                                .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                        SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+                    }
+                }
+            } catch (Exception e) {
+                // log the error or handle it accordingly
+                System.out.println("JWT validation error: " + e.getMessage());
+            }
         }
 
         filterChain.doFilter(request, response);

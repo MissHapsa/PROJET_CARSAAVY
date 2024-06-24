@@ -1,8 +1,8 @@
 package com.example.PROJETFILROUGE_CARSAVVY.model;
 
 
-import com.example.PROJETFILROUGE_CARSAVVY.view.UtilisateurView;
-import com.example.PROJETFILROUGE_CARSAVVY.view.VenteView;
+import com.example.PROJETFILROUGE_CARSAVVY.view.*;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -39,6 +39,10 @@ public class Vente {
     protected String immat;
 
     @JsonView({VenteView.class})
+    @Column(columnDefinition = "TEXT")
+    protected String imgUrl;
+
+    @JsonView({VenteView.class,VehiculeView.class, ModeleView.class, MarqueView.class})
     @JoinColumn(name = "id_vehicule")
     @ManyToOne
     protected Vehicule vehicule;

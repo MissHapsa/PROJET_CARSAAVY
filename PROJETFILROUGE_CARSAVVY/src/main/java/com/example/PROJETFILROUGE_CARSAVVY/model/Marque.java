@@ -1,7 +1,6 @@
 package com.example.PROJETFILROUGE_CARSAVVY.model;
 
-import com.example.PROJETFILROUGE_CARSAVVY.view.MarqueView;
-import com.example.PROJETFILROUGE_CARSAVVY.view.PrestationView;
+import com.example.PROJETFILROUGE_CARSAVVY.view.*;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -16,7 +15,7 @@ public class Marque {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
     @Column(nullable = false, length = 100)
-    @JsonView(MarqueView.class)
+    @JsonView({MarqueView.class, UtilisateurAvecCommandeView.class, UtilisateurView.class, VenteView.class, VehiculeView.class})
     protected String nom;
 
 }

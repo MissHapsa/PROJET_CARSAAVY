@@ -187,8 +187,52 @@
           <accountId value="VXNlcjoyNDI3ODI=" />
           <internalId value="80550962-e86f-4eda-883b-cf6e3a06a911" />
         </chat>
+        <chat>
+          <accountId value="VXNlcjoyNDI3ODI=" />
+          <internalId value="9cb2c4ce-d2af-4553-8ab9-9b63f574335c" />
+        </chat>
+        <chat>
+          <accountId value="VXNlcjoyNDI3ODI=" />
+          <internalId value="61a4b5b3-15ed-4d2d-93ba-4a348e130ce0" />
+        </chat>
+        <chat>
+          <accountId value="VXNlcjoyNDI3ODI=" />
+          <enhancedContext>
+            <enhancedContext>
+              <isEnabled value="false" />
+            </enhancedContext>
+          </enhancedContext>
+          <internalId value="7416aed4-b08d-495f-8147-0763e8d47a07" />
+        </chat>
+        <chat>
+          <accountId value="VXNlcjoyNDI3ODI=" />
+          <enhancedContext>
+            <enhancedContext>
+              <isEnabled value="false" />
+            </enhancedContext>
+          </enhancedContext>
+          <internalId value="321f4a02-744d-4bb9-aace-f2099c0b5c74" />
+          <messages>
+            <list>
+              <message>
+                <speaker value="HUMAN" />
+                <text value="Please review and analyze @\\c:\Users\bolly\Downloads\PROJETFILROUGE_CARSAVVY\PROJETFILROUGE_CARSAVVY\src\main\java\com\example\PROJETFILROUGE_CARSAVVY\controller\VehiculeConctroller.java:47  and identify potential areas for improvement related to code smells, readability, maintainability, performance, security, etc. Do not list issues already addressed in the given code. Focus on providing up to 5 constructive suggestions that could make the code more robust, efficient, or align with best practices. For each suggestion, provide a brief explanation of the potential benefits. After listing any recommendations, summarize if you found notable opportunities to enhance the code quality overall or if the code generally follows sound design principles. If no issues found, reply 'There are no errors.'" />
+              </message>
+              <message>
+                <speaker value="ASSISTANT" />
+                <text value="&lt;html&gt;&lt;b&gt; Cody encountered an error when processing your message:&lt;/b&gt;&lt;br&gt;&lt;div marginwidth=10&quot; marginheight=&quot;10&quot;&gt;&amp;#9888;  Invalid access token.&#10;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;/html&gt;" />
+              </message>
+            </list>
+          </messages>
+          <updatedAt value="2024-06-24T20:56:40.0273802" />
+        </chat>
       </list>
     </chats>
+    <defaultEnhancedContext>
+      <enhancedContext>
+        <isEnabled value="false" />
+      </enhancedContext>
+    </defaultEnhancedContext>
     <defaultLlm>
       <llm>
         <model value="anthropic/claude-3-sonnet-20240229" />

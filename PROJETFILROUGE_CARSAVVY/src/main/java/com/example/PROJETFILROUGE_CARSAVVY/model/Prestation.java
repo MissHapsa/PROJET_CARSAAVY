@@ -33,5 +33,9 @@ public class Prestation {
    @JoinColumn(name = "id_garage")
     protected Garage garage;
 
+    @JsonView (PrestationView.class)
+    @Column(nullable = false, length = 100)
+    protected int duree;
+
 
 }

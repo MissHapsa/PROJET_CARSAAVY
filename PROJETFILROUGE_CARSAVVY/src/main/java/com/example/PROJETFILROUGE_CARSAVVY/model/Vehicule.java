@@ -3,6 +3,7 @@ package com.example.PROJETFILROUGE_CARSAVVY.model;
 import com.example.PROJETFILROUGE_CARSAVVY.view.UtilisateurAvecCommandeView;
 import com.example.PROJETFILROUGE_CARSAVVY.view.UtilisateurView;
 import com.example.PROJETFILROUGE_CARSAVVY.view.VehiculeView;
+import com.example.PROJETFILROUGE_CARSAVVY.view.VenteView;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -17,12 +18,13 @@ import java.util.Optional;
 public class Vehicule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView({VehiculeView.class, UtilisateurAvecCommandeView.class,UtilisateurView.class})
     protected Integer id;
 
-    @JsonView({VehiculeView.class, UtilisateurAvecCommandeView.class})
+    @JsonView({VehiculeView.class, UtilisateurAvecCommandeView.class,UtilisateurView.class})
     private int annee;
 
-    @JsonView({VehiculeView.class, UtilisateurAvecCommandeView.class})
+    @JsonView({VehiculeView.class, UtilisateurAvecCommandeView.class,UtilisateurView.class})
     private String immat;
 
     @ManyToOne
@@ -30,7 +32,7 @@ public class Vehicule {
     private Utilisateur utilisateur;
 
     @ManyToOne
-    @JsonView({VehiculeView.class, UtilisateurAvecCommandeView.class})
+    @JsonView({VehiculeView.class, UtilisateurAvecCommandeView.class,UtilisateurView.class, VenteView.class})
     @JoinColumn(name = "id_modele", referencedColumnName = "id")
     private Modele modele;
 

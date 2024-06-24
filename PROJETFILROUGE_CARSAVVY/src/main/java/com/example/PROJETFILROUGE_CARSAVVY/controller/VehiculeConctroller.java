@@ -2,19 +2,21 @@ package com.example.PROJETFILROUGE_CARSAVVY.controller;
 
 import com.example.PROJETFILROUGE_CARSAVVY.model.Vehicule;
 import com.example.PROJETFILROUGE_CARSAVVY.repository.VehiculeRepository;
+import com.example.PROJETFILROUGE_CARSAVVY.repository.VenteRepository;
 import com.example.PROJETFILROUGE_CARSAVVY.security.AppUserDetails;
 import com.example.PROJETFILROUGE_CARSAVVY.service.FichierService;
-import com.example.PROJETFILROUGE_CARSAVVY.view.UtilisateurAvecCommandeView;
-import com.example.PROJETFILROUGE_CARSAVVY.view.VehiculeView;
+import com.example.PROJETFILROUGE_CARSAVVY.view.*;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -22,6 +24,10 @@ import java.util.List;
 public class VehiculeConctroller {
     @Autowired
     VehiculeRepository vehiculeRepository;
+
+//    importation du Venterepository pour autoriser la suppression d un vehicule sans pb de clé etrangere
+    @Autowired
+    private VenteRepository venteRepository;
 
     @Autowired
     FichierService fichierService;
@@ -33,19 +39,39 @@ public class VehiculeConctroller {
         return vehiculeRepository.findAll();
     }
 
-    @GetMapping("/utilisateur-vehicule/liste")
-    @JsonView({VehiculeView.class, UtilisateurAvecCommandeView.class})
-    public List<Vehicule> getAllVehicules(@AuthenticationPrincipal AppUserDetails user) {
-
-        return vehiculeRepository.findAllByIdUtilisateur(user.getUtilisateur().getId());
+    @GetMapping("/vehicule/{id}")
+    @JsonView(VehiculeView.class)
+    public ResponseEntity<Vehicule> getVehiculeById(@PathVariable Long id) {
+        Optional<Vehicule> vehicule = vehiculeRepository.findById(id);
+        if (vehicule.isPresent()) {
+            return new ResponseEntity<>(vehicule.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
+
 
     @PostMapping("/vehicule")
     @JsonView(VehiculeView.class)
-    public ResponseEntity<Vehicule> addVehicule(@RequestBody Vehicule vehicule, @AuthenticationPrincipal AppUserDetails user) {
+    public ResponseEntity<Vehicule>
+    addVehicule(@RequestBody Vehicule vehicule, @AuthenticationPrincipal AppUserDetails user) {
         vehicule.setIdutilisateur(user.getUtilisateur());
         Vehicule savedVehicule = vehiculeRepository.save(vehicule);
         return new ResponseEntity<>(savedVehicule, HttpStatus.CREATED);
+    }
+
+    @Transactional
+    @DeleteMapping("/vehicule/{id}")
+    public ResponseEntity<Void> deleteVehicule(@PathVariable Long id) {
+        if (vehiculeRepository.existsById(id)) {
+            venteRepository.deleteByVehiculeId(id);  // Supprimer les références dans la table vente
+            vehiculeRepository.deleteById(id);       // Supprimer le véhicule
+            System.out.println("Véhicule supprimé avec succès.");
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            System.out.println("Échec de la suppression : Véhicule non trouvé.");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
 }

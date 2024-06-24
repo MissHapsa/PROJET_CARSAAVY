@@ -47,7 +47,7 @@ public class Utilisateur {
     @Column( unique = true)
     protected String email;
 
-    @JsonView({UtilisateurView.class})
+    @JsonView({UtilisateurView.class, UtilisateurAvecCommandeView.class})
     protected String passeword;
 
     //@JsonView(UtilisateurView.class)
@@ -61,6 +61,27 @@ public class Utilisateur {
     private List<Vehicule> vehicules;
 
 
+    public String getPassword() {
+        return passeword;
+    }
 
+    public void setPassword(String passeword) {
+        this.passeword = passeword;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+    public Date getDateCreation() {
+        return date_creation;
+    }
+
+    public void setDateCreation(Date dateCreation) {
+        this.date_creation = dateCreation;
+    }
 }
 
