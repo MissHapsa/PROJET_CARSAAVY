@@ -1,6 +1,7 @@
 package com.example.PROJETFILROUGE_CARSAVVY.model;
 
 import com.example.PROJETFILROUGE_CARSAVVY.view.PrestationView;
+import com.example.PROJETFILROUGE_CARSAVVY.view.ReservationView;
 import com.example.PROJETFILROUGE_CARSAVVY.view.VenteView;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
@@ -16,7 +17,7 @@ public class Prestation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
-    @JsonView(PrestationView.class)
+    @JsonView({PrestationView.class, ReservationView.class})
     @Column(nullable = false, length = 100)
     protected String libelle;
 

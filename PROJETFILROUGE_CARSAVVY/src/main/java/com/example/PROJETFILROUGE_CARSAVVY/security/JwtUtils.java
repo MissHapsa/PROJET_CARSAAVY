@@ -16,6 +16,10 @@ public class JwtUtils {
 
     @Value("${secret.jwt}")
     private String secret;
+    Date now = new Date();
+    private long jwtExpirationMs;
+    Date expiryDate = new Date(now.getTime() + jwtExpirationMs);
+    
 
 
     public String getSubjectFromJwt(String token) {
@@ -60,6 +64,7 @@ public class JwtUtils {
         claims.put("tel", appUserDetails.utilisateur.getTel());
         claims.put("role", appUserDetails.utilisateur.getRole());
         System.out.println("Generated JWT: " + token);  // Log the generated JWT
+
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(userDetails.getUsername())
@@ -67,11 +72,12 @@ public class JwtUtils {
                 .compact();
     }
 
-    private String doGenerateToken(Map<String, Object> claims, String subject) {
+    public String doGenerateToken(Map<String, Object> claims, String username) {
+        long expirationTime = 1000 * 60 * 60; // 1 heure
         return Jwts.builder()
-                .setClaims(claims)
-                .setSubject(subject)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setSubject(username)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
     }

@@ -1,9 +1,6 @@
 package com.example.PROJETFILROUGE_CARSAVVY.model;
 
-import com.example.PROJETFILROUGE_CARSAVVY.view.UtilisateurAvecCommandeView;
-import com.example.PROJETFILROUGE_CARSAVVY.view.UtilisateurView;
-import com.example.PROJETFILROUGE_CARSAVVY.view.VehiculeView;
-import com.example.PROJETFILROUGE_CARSAVVY.view.VenteView;
+import com.example.PROJETFILROUGE_CARSAVVY.view.*;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -24,7 +21,7 @@ public class Vehicule {
     @JsonView({VehiculeView.class, UtilisateurAvecCommandeView.class,UtilisateurView.class})
     private int annee;
 
-    @JsonView({VehiculeView.class, UtilisateurAvecCommandeView.class,UtilisateurView.class})
+    @JsonView({VehiculeView.class, UtilisateurAvecCommandeView.class,UtilisateurView.class, ReservationView.class})
     private String immat;
 
     @ManyToOne
