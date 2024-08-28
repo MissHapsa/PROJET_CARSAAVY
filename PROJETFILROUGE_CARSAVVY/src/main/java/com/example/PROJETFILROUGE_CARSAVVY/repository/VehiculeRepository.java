@@ -19,4 +19,6 @@ public interface VehiculeRepository extends JpaRepository<Vehicule, Integer> {
     void deleteById(Long id);
 
     Optional<Vehicule> findById(Long id);
+
+    List<Vehicule> findByUtilisateurId(Long id);
 }

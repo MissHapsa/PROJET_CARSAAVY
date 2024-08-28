@@ -16,11 +16,9 @@ public class JwtUtils {
 
     @Value("${secret.jwt}")
     private String secret;
-    Date now = new Date();
-    private long jwtExpirationMs;
-    Date expiryDate = new Date(now.getTime() + jwtExpirationMs);
-    
 
+    @Value("${jwt.expiration.ms}")
+    private long jwtExpirationMs; // Configurez cela dans application.properties/yml
 
     public String getSubjectFromJwt(String token) {
         try {
@@ -48,36 +46,29 @@ public class JwtUtils {
     }
 
     public String generateToken(UserDetails userDetails) {
-
         AppUserDetails appUserDetails = (AppUserDetails) userDetails;
 
         Map<String, Object> claims = new HashMap<>();
-        String token = doGenerateToken(claims, userDetails.getUsername());
+        claims.put("id", appUserDetails.getUtilisateur().getId());
+        claims.put("nom", appUserDetails.getUtilisateur().getNom());
+        claims.put("prenom", appUserDetails.getUtilisateur().getPrenom());
+        claims.put("rue", appUserDetails.getUtilisateur().getRue());
+        claims.put("cp", appUserDetails.getUtilisateur().getCp());
+        claims.put("ville", appUserDetails.getUtilisateur().getVille());
+        claims.put("email", appUserDetails.getUtilisateur().getEmail());
+        claims.put("tel", appUserDetails.getUtilisateur().getTel());
+        claims.put("role", appUserDetails.getUtilisateur().getRole());
+        claims.put("role_id", appUserDetails.getUtilisateur().getRole().getId());
 
-        claims.put("id", appUserDetails.utilisateur.getId());
-        claims.put("nom", appUserDetails.utilisateur.getNom());
-        claims.put("prenom", appUserDetails.utilisateur.getPrenom());
-        claims.put("rue", appUserDetails.utilisateur.getRue());
-        claims.put("cp", appUserDetails.utilisateur.getCp());
-        claims.put("ville", appUserDetails.utilisateur.getVille());
-        claims.put("email", appUserDetails.utilisateur.getEmail());
-        claims.put("tel", appUserDetails.utilisateur.getTel());
-        claims.put("role", appUserDetails.utilisateur.getRole());
-        System.out.println("Generated JWT: " + token);  // Log the generated JWT
-
-        return Jwts.builder()
-                .setClaims(claims)
-                .setSubject(userDetails.getUsername())
-                .signWith(SignatureAlgorithm.HS256, secret)
-                .compact();
+        return doGenerateToken(claims, userDetails.getUsername());
     }
 
-    public String doGenerateToken(Map<String, Object> claims, String username) {
-        long expirationTime = 1000 * 60 * 60; // 1 heure
+    private String doGenerateToken(Map<String, Object> claims, String subject) {
         return Jwts.builder()
-                .setSubject(username)
+                .setClaims(claims)
+                .setSubject(subject)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
+                .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
     }

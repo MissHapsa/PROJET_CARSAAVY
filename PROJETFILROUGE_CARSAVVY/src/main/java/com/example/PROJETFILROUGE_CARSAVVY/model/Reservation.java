@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Time;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Getter
@@ -41,4 +43,8 @@ public class Reservation {
     @JsonView(ReservationView.class)
     @Column(name = "statut", nullable = false)
     private String statut;
+
+    @JsonView(ReservationView.class)
+    @Column(name = "creneau", nullable = false)
+    private LocalTime creneau;
 }

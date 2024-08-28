@@ -51,14 +51,24 @@ public class ConnexionController {
                             utilisateur.getEmail(),
                             utilisateur.getPasseword())).getPrincipal();
 
-            return new ResponseEntity<>(Map.of("jwt",jwtUtils.generateToken(userDetails)), HttpStatus.OK);
+            // Assurez-vous que `userDetails` est bien une instance de `AppUserDetails`
+            AppUserDetails appUserDetails = (AppUserDetails) userDetails;
+
+            // Générez le JWT
+            String jwt = jwtUtils.generateToken(userDetails);
+
+            // Retournez le JWT et le `role_id` dans la réponse
+            return new ResponseEntity<>(Map.of(
+                    "jwt", jwt,
+                    "role_id", appUserDetails.getUtilisateur().getRole().getId()
+            ), HttpStatus.OK);
 
         } catch (AuthenticationException ex) {
 
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-
         }
     }
+
 
     @PostMapping("/inscription")
     public ResponseEntity<Map<String, Object>> inscription (@RequestBody Utilisateur utilisateur) {

@@ -1,8 +1,10 @@
 package com.example.PROJETFILROUGE_CARSAVVY.security;
 
+import jakarta.servlet.DispatcherType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -60,6 +62,14 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfiguration);
         return source;
+    }
+
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+                .dispatcherTypeMatchers(HttpMethod.POST, DispatcherType.valueOf("/vehicule/utilisateur/**")).authenticated()
+                .anyRequest().permitAll()
+                .and();  // ou une autre méthode d'authentification comme JWT
     }
 
 }

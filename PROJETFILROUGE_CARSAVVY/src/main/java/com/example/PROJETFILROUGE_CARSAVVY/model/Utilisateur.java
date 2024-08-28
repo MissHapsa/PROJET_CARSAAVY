@@ -5,6 +5,7 @@ import com.example.PROJETFILROUGE_CARSAVVY.view.ReservationView;
 import com.example.PROJETFILROUGE_CARSAVVY.view.UtilisateurAvecCommandeView;
 import com.example.PROJETFILROUGE_CARSAVVY.view.UtilisateurView;
 import com.example.PROJETFILROUGE_CARSAVVY.model.Vehicule;
+import com.example.PROJETFILROUGE_CARSAVVY.view.VehiculeView;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -23,10 +24,10 @@ public class Utilisateur {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
 
-    @JsonView({UtilisateurView.class, UtilisateurAvecCommandeView.class,ReservationView.class})
+    @JsonView({VehiculeView.class, UtilisateurView.class, UtilisateurAvecCommandeView.class,ReservationView.class})
      protected String nom;
 
-    @JsonView({UtilisateurView.class, UtilisateurAvecCommandeView.class,ReservationView.class})
+    @JsonView({VehiculeView.class, UtilisateurView.class, UtilisateurAvecCommandeView.class,ReservationView.class})
     protected String prenom;
 
     @JsonView({UtilisateurView.class, UtilisateurAvecCommandeView.class})

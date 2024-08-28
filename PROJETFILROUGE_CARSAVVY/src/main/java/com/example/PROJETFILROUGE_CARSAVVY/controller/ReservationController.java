@@ -1,11 +1,18 @@
 package com.example.PROJETFILROUGE_CARSAVVY.controller;
 
+import com.example.PROJETFILROUGE_CARSAVVY.model.Prestation;
 import com.example.PROJETFILROUGE_CARSAVVY.model.Reservation;
+import com.example.PROJETFILROUGE_CARSAVVY.model.Utilisateur;
+import com.example.PROJETFILROUGE_CARSAVVY.model.Vehicule;
+import com.example.PROJETFILROUGE_CARSAVVY.repository.PrestationRepository;
 import com.example.PROJETFILROUGE_CARSAVVY.repository.ReservationRepository;
+import com.example.PROJETFILROUGE_CARSAVVY.repository.UtilisateurRepository;
+import com.example.PROJETFILROUGE_CARSAVVY.repository.VehiculeRepository;
 import com.example.PROJETFILROUGE_CARSAVVY.service.FichierService;
 import com.example.PROJETFILROUGE_CARSAVVY.view.ReservationView;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +25,14 @@ public class ReservationController {
 
     @Autowired
     private ReservationRepository reservationRepository;
+    @Autowired
+    private VehiculeRepository vehiculeRepository;
 
+    @Autowired
+    private PrestationRepository prestationRepository;
+
+    @Autowired
+    private UtilisateurRepository utilisateurRepository;
     @Autowired
     private FichierService fichierService;
 
@@ -53,11 +67,25 @@ public class ReservationController {
     }
 
     // Create a new reservation
-    @PostMapping
-    @JsonView(ReservationView.class)
-    public Reservation createReservation(@RequestBody Reservation reservation) {
-        return reservationRepository.save(reservation);
+    @PostMapping("/utilisateur/{idUtilisateur}")
+    public ResponseEntity<Reservation> createReservation(@PathVariable("idUtilisateur") Long idUtilisateur, @RequestBody Reservation reservation) {
+        if (reservation.getUtilisateur() == null || reservation.getUtilisateur().getId() == null) {
+            throw new IllegalArgumentException("L'ID de l'utilisateur ne doit pas être nul");
+        }
+        if (reservation.getVehicule() == null || reservation.getVehicule().getId() == null) {
+            throw new IllegalArgumentException("L'ID du véhicule ne doit pas être nul");
+        }
+        if (reservation.getPrestation() == null || reservation.getPrestation().getId() == null) {
+            throw new IllegalArgumentException("L'ID de la prestation ne doit pas être nul");
+        }
+        Vehicule vehicule = vehiculeRepository.findById(reservation.getVehicule().getId())
+                .orElseThrow(() -> new RuntimeException("Véhicule non trouvé"));
+
+        // Sauvegarder la réservation
+        Reservation newReservation = reservationRepository.save(reservation);
+        return new ResponseEntity<>(newReservation, HttpStatus.CREATED);
     }
+
 
     // Update a reservation
     @PutMapping("/{id}")

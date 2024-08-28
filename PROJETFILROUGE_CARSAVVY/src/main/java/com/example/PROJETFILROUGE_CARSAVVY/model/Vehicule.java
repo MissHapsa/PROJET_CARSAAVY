@@ -25,6 +25,7 @@ public class Vehicule {
     private String immat;
 
     @ManyToOne
+    @JsonView({VehiculeView.class, UtilisateurAvecCommandeView.class,UtilisateurView.class, VenteView.class})
     @JoinColumn(name = "id_utilisateur", referencedColumnName = "id")
     private Utilisateur utilisateur;
 

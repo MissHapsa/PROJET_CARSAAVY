@@ -15,6 +15,7 @@ public class Prestation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView({PrestationView.class, ReservationView.class})
     protected Long id;
 
     @JsonView({PrestationView.class, ReservationView.class})

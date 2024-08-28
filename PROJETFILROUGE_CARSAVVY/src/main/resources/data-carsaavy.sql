@@ -109,16 +109,17 @@ INSERT INTO `vente` (`id`, `prix`, `date_rentre`, `date_vente`, `annee`, `immat`
                                                                                                      (6, '16000.000', '2024-03-20', NULL, 2017, 'GF-901-ZY', 2);
 
 
-INSERT INTO `reservation` (`id_utilisateur`, `id_vehicule`, `id_prestation`, `date_reservation`, `statut`) VALUES
-                                                                                                               (1, 1, 1, '2024-02-15', 'Effectuée'),
-                                                                                                               (1, 3, 2, '2024-03-20', 'Effectuée'),
-                                                                                                               (2, 5, 3, '2024-01-10', 'Effectuée'),
-                                                                                                               (2, 6, 4, '2024-02-25', 'Effectuée'),
-                                                                                                               (2, 7, 5, '2024-05-12', 'Effectuée'),
-                                                                                                               (3, 2, 1, '2024-03-05', 'Effectuée'),
-                                                                                                               (3, 2, 6, '2024-06-18', 'Effectuée'),
-                                                                                                               (4, 4, 4, '2024-01-30', 'Effectuée'),
-                                                                                                               (4, 8, 2, '2024-04-08', 'Effectuée'),
-                                                                                                               (4, 8, 7, '2024-07-22', 'Effectuée');
+INSERT INTO `reservation` (`id_utilisateur`, `id_vehicule`, `id_prestation`, `date_reservation`, `statut`, `creneau`) VALUES
+                                                                                                                          (1, 1, 1, '2024-02-15', 'Effectuée', '08:00:00'),
+                                                                                                                          (1, 3, 2, '2024-03-20', 'Effectuée', '14:00:00'),
+                                                                                                                          (2, 5, 3, '2024-01-10', 'Effectuée', '10:00:00'),
+                                                                                                                          (2, 6, 4, '2024-02-25', 'Effectuée', '16:00:00'),
+                                                                                                                          (2, 7, 5, '2024-05-12', 'Effectuée', '08:00:00'),
+                                                                                                                          (3, 2, 1, '2024-03-05', 'Effectuée', '14:00:00'),
+                                                                                                                          (3, 2, 6, '2024-06-18', 'Effectuée', '10:00:00'),
+                                                                                                                          (4, 4, 4, '2024-01-30', 'Effectuée', '16:00:00'),
+                                                                                                                          (4, 8, 2, '2024-04-08', 'Effectuée', '08:00:00'),
+                                                                                                                          (4, 8, 7, '2024-07-22', 'Effectuée', '14:00:00');
+
 
 
